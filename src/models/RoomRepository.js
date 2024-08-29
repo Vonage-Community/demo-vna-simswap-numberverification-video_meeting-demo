@@ -9,6 +9,7 @@ class RoomRepository {
     async createSession(response, roomName, sessionProperties = {}, role = 'moderator') {
         let sessionId;
         let token;
+        const vonage = getVonageClient();
         console.log(`Creating ${role} creds for ${roomName}`);
       
         if (this.roomToSessionIdDictionary[roomName]) {
@@ -16,13 +17,12 @@ class RoomRepository {
           token = vonage.video.generateClientToken(sessionId, { role })
           response.setHeader('Content-Type', 'application/json');
           response.send({
-            applicationId: appId,
+            applicationId: process.env.API_APPLICATION_ID,
             sessionId: sessionId,
             token: token
           });
         } else {
           try {
-            const vonage = getVonageClient();
             const session = await vonage.video.createSession(sessionProperties);
       
             // now that the room name has a session associated wit it, store it in memory
@@ -35,7 +35,7 @@ class RoomRepository {
             token = vonage.video.generateClientToken(session.sessionId, { role });
             response.setHeader('Content-Type', 'application/json');
             response.send({
-              applicationId: appId,
+              applicationId: process.env.API_APPLICATION_ID,
               sessionId: session.sessionId,
               token: token
             });

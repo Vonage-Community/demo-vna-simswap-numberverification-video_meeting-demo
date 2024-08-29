@@ -22,7 +22,8 @@
     "express-session": "^1.18.0",
     "fast-glob": "^3.3.2",
     "lodash-es": "^4.17.21",
-    "twig": "^1.17.1"
+    "twig": "^1.17.1",
+    "unique-names-generator": "^4.7.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"

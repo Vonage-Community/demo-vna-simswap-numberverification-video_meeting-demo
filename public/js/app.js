@@ -126,7 +126,11 @@ archiveStopBtn.addEventListener('click', stopArchiving, false);
 // See the config.js file.
 if (SAMPLE_SERVER_BASE_URL) {
   // Make a GET request to get the Vonage Application ID, session ID, and token from the server
-  fetch(SAMPLE_SERVER_BASE_URL + '/api/room/session')
+  const path = window.location.pathname;
+
+  const regex = /\/room\/([a-zA-Z0-9-]+)/;
+  const match = regex.exec(path);
+  fetch(`${SAMPLE_SERVER_BASE_URL}/api/room/${match[1]}`)
   .then((response) => response.json())
   .then((json) => {
     applicationId = json.applicationId;
