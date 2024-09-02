@@ -1,5 +1,6 @@
 import { findKey, keys } from 'lodash-es';
 import { getVonageClient } from '../Vonage.js';
+import { getConfigValue } from './Config.js';
 
 class RoomRepository {
     constructor() {
@@ -17,7 +18,7 @@ class RoomRepository {
           token = vonage.video.generateClientToken(sessionId, { role })
           response.setHeader('Content-Type', 'application/json');
           response.send({
-            applicationId: process.env.API_APPLICATION_ID,
+            applicationId: getConfigValue('API_APPLICATION_ID'),
             sessionId: sessionId,
             token: token
           });
@@ -35,7 +36,7 @@ class RoomRepository {
             token = vonage.video.generateClientToken(session.sessionId, { role });
             response.setHeader('Content-Type', 'application/json');
             response.send({
-              applicationId: process.env.API_APPLICATION_ID,
+              applicationId: getConfigValue('API_APPLICATION_ID'),
               sessionId: session.sessionId,
               token: token
             });
@@ -47,7 +48,7 @@ class RoomRepository {
       }
 
     fetchRooms() {
-        console.log(keys);
+        console.log(`RoomRepository: ${keys}`);
         return keys(this.roomToSessionIdDictionary);
     }
 

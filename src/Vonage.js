@@ -1,13 +1,14 @@
 import { Vonage } from "@vonage/server-sdk";
 import { Auth } from '@vonage/auth';
+import { getConfigValue } from './models/Config.js';
 
 function getAuth() {
-    const privateKeyString = process.env.PRIVATE_KEY || null;
-    const applicationId = process.env.API_APPLICATION_ID || null;
+    const privateKeyString = getConfigValue('PRIVATE_KEY') || null;
+    const applicationId = getConfigValue('API_APPLICATION_ID') || null;
     
     const authData = {
-        apiKey: process.env.VONAGE_API_KEY,
-        apiSecret: process.env.VONAGE_API_SECRET
+        apiKey: getConfigValue('API_KEY'),
+        apiSecret: getConfigValue('API_SECRET')
     };
     
     if (privateKeyString && applicationId) {

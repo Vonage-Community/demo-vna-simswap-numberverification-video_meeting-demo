@@ -9,8 +9,9 @@ import Twig from 'twig';
 import RouteLoader from './src/RouteLoader.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { getConfigValue } from './src/models/Config.js';
 
-const expressPort = process.env.PORT || process.env.NERU_APP_PORT || 3000;
+const expressPort = getConfigValue('PORT') || getConfigValue('NERU_APP_PORT') || 3000;
 
 const app = express();
 app.set('views', './views');
