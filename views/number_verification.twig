@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Vonage Video Archiving Sample </title>
+    <link href="/css/app.css" rel="stylesheet" type="text/css">
+    <script src="/js/vendor/qrcode.min.js"></script>
+</head>
+
+<body>
+    <h1>Verify your Device</h1>
+    <div id="qrcode"></div>
+
+    <a href="{{ verification_url }}">{{verification_url}}</a>
+
+    <script>
+        new QRCode(
+            document.getElementById('qrcode'),
+            '{{ verification_url }}'
+        );
+    </script>
+</body>
+</html>

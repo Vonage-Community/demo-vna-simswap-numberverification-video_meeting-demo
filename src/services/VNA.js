@@ -41,6 +41,27 @@ export class VNA {
 
         return camaraJson.access_token;
     }
+
+    async getBearerTokenByCode(code) {
+        const vonageJWT = tokenGenerate(this.applicationID, this.privateKey);
+        const body = new URLSearchParams({
+            grant_type: 'authorization_code',
+            code,
+            redirect_url: `https://${process.env.DOMAIN}/oauth/redirect`
+        });
+        console.log(body);
+        const camaraResponse = await fetch('https://api-eu.vonage.com/oauth2/token', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': `Bearer ${vonageJWT}`
+            },
+            body: body.toString()
+        });
+        const camaraJson = await camaraResponse.json();
+console.log(camaraJson);
+        return camaraJson.access_token;
+    }
 }
 
 export function getVNAService(applicationID, privateKey) {
