@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html>
+{% extends '_layouts/default.twig' %}
 
-<head>
-    <title> Vonage Video Archiving Sample </title>
-    <link href="/css/app.css" rel="stylesheet" type="text/css">
-</head>
-
-<body>
-    <h1>Your SIM has been recently swapped</h1>
-    
-    <div>
-        Unfortunately, it seems you SIM card has been recently swapped. We are unable to finish authenticating your device.
-    </div>
-</body>
-</html>
+{% block content %}
+<h1 class="text-3xl font-bold">Your SIM has been recently swapped</h1>
+<div>
+    Unfortunately, it seems you SIM card has been recently swapped. We are unable to finish authenticating your device.
+</div>
+{% endblock %}

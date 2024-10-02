@@ -1,4 +1,7 @@
-<h1>Available Rooms</h1>
+{% extends '_layouts/default.twig' %}
+
+{% block content %}
+<h1 class="text-3xl font-bold">Available Rooms</h1>
 
 <ul>
 {% for room in rooms %}
@@ -6,4 +9,7 @@
 {% endfor %}
 </ul>
 
-<a href="/generate-room">Create new room</a>
+<a href="/generate-room">
+    <vwc-button appearance="filled" label="Create New Room"></vwc-button>
+</a>
+{% endblock %}

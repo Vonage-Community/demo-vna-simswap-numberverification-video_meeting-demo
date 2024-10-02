@@ -1,2 +1,48 @@
-<a href="/qr-code">Attempt to log in using SIM Swap and Number Verification</a><br />
-<a href="/room">Bypass login and skip to video portion</a>
+{% extends '_layouts/default.twig' %}
+
+{% block content %}
+<div >
+    <div class="font-bold text-lg text-center">
+        We provide two ways to access the demo. You can see how our Network APIs can be used to reduce fraud through our SIM Swap APIs and Number Verification services, or you can jump right into the Video portion of the demo.
+    </div>
+
+    <vwc-layout>
+        <vwc-card>
+            <div slot="main">
+                <vwc-layout gutters="small" column-spacing="small" column-basis="block">
+                    <div class="font-bold">Log in using SIM Swap and Number Verification</div>
+                    <div>
+                        <div>
+                            <vwc-text-field
+                                label="Your Mobile Number"
+                                helper-text="You would collect the number from the user, or from their account. For this demo, we will use a preset number"
+                                disabled="true"
+                                value="990123456"
+                                class="w-full"
+                            ></vwc-text-field>
+                        </div>
+                        <div>
+                            <a href="/qr-code">
+                                <vwc-button appearance="filled" label="Log In"></vwc-button>
+                            </a>
+                        </div>
+                    </div>
+                </vwc-layout>
+            </div>
+        </vwc-card>
+
+        <vwc-card>
+            <div slot="main">
+                <vwc-layout gutters="small" column-spacing="small" column-basis="block">
+                    <div class="font-bold">Bypass the Login</div>
+                    <div>
+                        <a href="/room">
+                            <vwc-button appearance="filled" label="Log In"></vwc-button>
+                        </a>
+                    </div>
+                </vwc-layout>
+            </div>
+        </vwc-card>
+    </vwc-layout>
+</div>
+{% endblock %}

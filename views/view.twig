@@ -1,27 +1,39 @@
-<!DOCTYPE html>
-<html>
+{% extends '_layouts/default.twig' %}
 
-<head>
-    <title> Vonage Video Archiving Sample </title>
-    <link href="/css/app.css" rel="stylesheet" type="text/css">
-    <script src="https://unpkg.com/@vonage/client-sdk-video@latest/dist/js/opentok.js"></script>
-</head>
+{% block header_javascript %}
+<script src="https://unpkg.com/@vonage/client-sdk-video@latest/dist/js/opentok.js"></script>
+{% endblock %}
 
-<body>
+{% block content %}
+<div>
     <div id="videos">
-        <div id="subscriber"></div>
-        <div id="publisher"></div>
+        <vwc-layout>
+            <div>
+                <div class="font-bold">Your Camera</div>
+                <div id="publisher"></div>
+            </div>
+
+            <vwc-layout>
+                <div>
+                    <div class="font-bold">Other Participants</div>
+                    <div id="subscriber"></div>
+                </div>
+            </vwc-layout>
+        </vwc-layout>
+        
+        
     </div>
     <div id="buttonHolder">
-       <div id="buttons">
-           <button type="button" id="start">Start Archive</button>
-           <button type="button" id="stop">Stop Archive</button>
-           <span id="archiveLink"></span>
-       </div>
+        <div id="buttons">
+            <vwc-button appearance="filled" label="Start Archive" id="start"></vwc-button>
+            <vwc-button appearance="filled" label="Stop Archive" id="stop"></vwc-button>
+            <span id="archiveLink"></span>
+        </div>
     </div>
-s
-    <script type="text/javascript" src="/js/config.js"></script>
-    <script type="text/javascript" src="/js/app.js"></script>
-</body>
+</div>
+{% endblock %}
 
-</html>
+{% block footer_javascript %}
+<script type="text/javascript" src="/js/config.js"></script>
+<script type="text/javascript" src="/js/app.js"></script>
+{% endblock %}

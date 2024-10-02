@@ -1,32 +1,37 @@
-<!DOCTYPE html>
-<html>
+{% extends '_layouts/default.twig' %}
 
-<head>
-    <title> Vonage Video Archiving Sample </title>
-    <link href="/css/app.css" rel="stylesheet" type="text/css">
-    <script src="/js/vendor/qrcode.min.js"></script>
-</head>
+{% block header_javascript %}
+<script src="/js/vendor/qrcode.min.js"></script>
+{% endblock %}
 
-<body>
-    <h1>Verify your Device</h1>
-    <div id="qrcode"></div>
+{% block content %}
+<div style="margin: 0px auto 0px auto" class="text-center">
+    <h1 class="text-3xl font-bold">Verify your Device</h1>
 
-    <a href="{{ verification_url }}">{{verification_url}}</a>
+    <div class="m-4" id="qrcode"></div>
 
-    <script>
-        new QRCode(
-            document.getElementById('qrcode'),
-            '{{ verification_url }}'
-        );
+        <div>
+            <a href="{{ verification_url }}" target="_blank">
+                <vwc-button appearance="filled" label="Verify on computer"></vwc-button>
+            </a>
+        </div>
+</div>
+{% endblock %}
 
-        const wsUrl = 'wss://' + window.location.host + '/ws';
-        webSocket = new WebSocket(wsUrl);
-        webSocket.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            if (data['{{ stateID }}']) {
-                window.location = '/room';
-            }
+{% block footer_javascript %}
+<script>
+    new QRCode(
+        document.getElementById('qrcode'),
+        '{{ verification_url }}'
+    );
+
+    const wsUrl = 'wss://' + window.location.host + '/ws';
+    webSocket = new WebSocket(wsUrl);
+    webSocket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        if (data['{{ stateID }}']) {
+            window.location = '/room';
         }
-    </script>
-</body>
-</html>
+    }
+</script>
+{% endblock %}
