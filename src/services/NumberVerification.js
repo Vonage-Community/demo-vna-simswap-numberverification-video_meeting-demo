@@ -15,8 +15,6 @@ export class NumberVerification {
             login_hint: phoneNumber
         });
 
-        console.log(params);
-
         return `https://oidc.idp.vonage.com/oauth2/auth?${params}`;
     }
 
@@ -37,7 +35,6 @@ export class NumberVerification {
         });
 
         const json = await response.json();
-        console.log(json);
         
         return json.devicePhoneNumberVerified;
     }

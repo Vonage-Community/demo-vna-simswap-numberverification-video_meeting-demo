@@ -48,7 +48,6 @@ class RoomRepository {
       }
 
     fetchRooms() {
-        console.log(`RoomRepository: ${keys}`);
         return keys(this.roomToSessionIdDictionary);
     }
 

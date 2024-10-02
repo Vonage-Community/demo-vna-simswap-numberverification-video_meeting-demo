@@ -3,7 +3,7 @@ import { getNumberVerificationService } from './../../services/NumberVerificatio
 
 export default function(router) {
     router.get('/oauth/redirect', async (req, res) => {
-        if (res.query?.code) {
+        if (req.query?.code) {
             const vna = getVNAService(
                 process.env.API_APPLICATION_ID,
                 process.env.PRIVATE_KEY

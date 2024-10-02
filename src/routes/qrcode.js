@@ -16,7 +16,7 @@ export default function(router) {
          console.log('BAd path');
       } else {
          const numberVerification = getNumberVerificationService(vna);
-         const url = numberVerification.getAuthURL(process.env.DOMAIN, '+990123456', 'qaergqaerg34r5');
+         const url = numberVerification.getAuthURL(process.env.DOMAIN, '+990123456', '45sefsrs');
 
          res.render('number_verification.twig', { 'verification_url': url });
       }

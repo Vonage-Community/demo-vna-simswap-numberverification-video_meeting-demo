@@ -47,9 +47,9 @@ export class VNA {
         const body = new URLSearchParams({
             grant_type: 'authorization_code',
             code,
-            redirect_url: `https://${process.env.DOMAIN}/oauth/redirect`
+            redirect_uri: `https://${process.env.DOMAIN}/oauth/redirect`
         });
-        console.log(body);
+
         const camaraResponse = await fetch('https://api-eu.vonage.com/oauth2/token', {
             method: 'POST',
             headers: {
@@ -59,7 +59,7 @@ export class VNA {
             body: body.toString()
         });
         const camaraJson = await camaraResponse.json();
-console.log(camaraJson);
+
         return camaraJson.access_token;
     }
 }
