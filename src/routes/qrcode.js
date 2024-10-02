@@ -22,7 +22,7 @@ export default function(router) {
       const hasBeenSwapped = await simSwap.hasBeenRecentlySwapped('990123456');
       
       if (hasBeenSwapped) {
-         console.log('BAd path');
+         res.render('sim_swap_error.twig');
       } else {
          const stateID = createRandomString(10);
          const numberVerification = getNumberVerificationService(vna);
