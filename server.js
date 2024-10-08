@@ -10,11 +10,9 @@ import RouteLoader from './src/RouteLoader.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { getConfigValue } from './src/models/Config.js';
-import { readFileSync } from 'fs';
 import { getApp } from './src/services/App.js';
 
 const expressPort = getConfigValue('PORT') || getConfigValue('NERU_APP_PORT') || 3000;
-process.env.PRIVATE_KEY = readFileSync(process.env.PRIVATE_KEY);
 
 const app = getApp();
 app.set('views', './views');
