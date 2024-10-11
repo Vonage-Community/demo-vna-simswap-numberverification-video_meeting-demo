@@ -2,7 +2,7 @@ import { getVonageClient } from "../../Vonage.js";
 
 export default function(router) {
     router.get('/api/archive', async (req, res) => {
-        const vonage = getVonageClient();
+        const vonage = await getVonageClient();
         let filter = {};
         if (req.query.count) {
           filter.count = req.query.count;

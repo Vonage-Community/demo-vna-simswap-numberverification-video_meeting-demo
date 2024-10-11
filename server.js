@@ -12,7 +12,7 @@ import { fileURLToPath } from 'url';
 import { getConfigValue } from './src/models/Config.js';
 import { getApp } from './src/services/App.js';
 
-const expressPort = getConfigValue('PORT') || getConfigValue('NERU_APP_PORT') || 3000;
+const expressPort = await getConfigValue('PORT') || await getConfigValue('NERU_APP_PORT') || 8080;
 
 const app = getApp();
 app.set('views', './views');

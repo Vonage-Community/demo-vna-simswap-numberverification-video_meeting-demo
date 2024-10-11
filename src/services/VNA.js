@@ -6,7 +6,7 @@ const instances = {};
 export class VNA {
     constructor(applicationID, privateKey) {
         this.applicationID = applicationID;
-        this.privateKey = privateKey;
+        this.privateKey = Buffer.from(privateKey, 'base64');
     }
     
     getApplicationID() {

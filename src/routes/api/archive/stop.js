@@ -2,7 +2,7 @@ import { getVonageClient } from "../../../Vonage.js";
 
 export default function(router) {
     router.post('/api/archive/:archiveId/stop', async (req, res) => {
-        const vonage = getVonageClient();
+        const vonage = await getVonageClient();
         const archiveId = req.params.archiveId;
         console.log('attempting to stop archive: ' + archiveId);
         try {

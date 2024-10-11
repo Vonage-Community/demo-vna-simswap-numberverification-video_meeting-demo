@@ -4,7 +4,7 @@ import { getVonageClient } from "../../../Vonage.js";
 export default function(router) {
     router.post('/api/archive/start', async (req, res) => {
         console.log('attempting to start archive');
-        const vonage = getVonageClient();
+        const vonage = await getVonageClient();
         const rr = getRoomRepository();
         const json = req.body;
         const sessionId = json.sessionId;

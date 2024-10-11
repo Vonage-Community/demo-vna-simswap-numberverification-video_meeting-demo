@@ -1,13 +1,15 @@
 import { getVNAService } from './../../services/VNA.js';
 import { getNumberVerificationService } from './../../services/NumberVerification.js';
 import { getWebsocket } from '../../services/App.js';
+import { getConfigValue } from '../../models/Config.js';
+
 
 export default function(router) {
     router.get('/oauth/redirect', async (req, res) => {
         if (req.query?.code) {
             const vna = getVNAService(
-                process.env.API_APPLICATION_ID,
-                process.env.PRIVATE_KEY
+                await getConfigValue('API_APPLICATION_ID'),
+                await getConfigValue('PRIVATE_KEY')
              );
              const numberVerification = getNumberVerificationService(vna);
              const hasPassed = await numberVerification.check(req.query.code, '990123456');

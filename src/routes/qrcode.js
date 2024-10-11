@@ -1,6 +1,7 @@
 import { getSimSwapService } from './../services/SimSwap.js';
 import { getVNAService } from './../services/VNA.js';
 import { getNumberVerificationService } from './../services/NumberVerification.js';
+import { getConfigValue } from '../models/Config.js';
 
 function createRandomString(length) {
    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -14,8 +15,8 @@ function createRandomString(length) {
 export default function(router) {
     router.get('/qr-code', async (req, res) => {
       const vna = getVNAService(
-         process.env.API_APPLICATION_ID,
-         process.env.PRIVATE_KEY
+         await getConfigValue('API_APPLICATION_ID'),
+         await getConfigValue('PRIVATE_KEY')
       );
       const simSwap = getSimSwapService(vna);
 
