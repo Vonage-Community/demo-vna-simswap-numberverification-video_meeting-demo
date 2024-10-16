@@ -1,0 +1,23 @@
+project:
+    name: aws-hackday-2024
+instance:
+    name: dev
+    runtime: nodejs18
+    region: aws.use1
+    application-id: bfc709de-d3d8-42f4-9681-f94753055600
+    environment:
+        - name: AWS
+          value: 0
+    entrypoint:
+        - node
+        - server.js
+debug:
+    name: debug
+    application-id: 359a4afb-633b-429e-b16c-457171fc4ed4
+    environment:
+        - name: AWS
+          value: 0
+    entrypoint:
+        - nodemon
+        - --inspect
+        - server.js

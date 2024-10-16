@@ -12,7 +12,11 @@ async function getAuth() {
     };
     
     if (privateKeyString && applicationId) {
-        authData['privateKey'] = Buffer.from(privateKeyString, 'base64');
+        if (privateKeyString.startsWith('---')) {
+            authData['privateKey'] = Buffer.from(privateKeyString);
+        } else {
+            authData['privateKey'] = Buffer.from(privateKeyString, 'base64');
+        }
         authData['applicationId'] = applicationId;
     }
 

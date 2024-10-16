@@ -7,7 +7,11 @@ const instances = {};
 export class VNA {
     constructor(applicationID, privateKey) {
         this.applicationID = applicationID;
-        this.privateKey = Buffer.from(privateKey, 'base64');
+        if (privateKey.startsWith('---')) {
+            this.privateKey = Buffer.from(privateKey);
+        } else {
+            this.privateKey = Buffer.from(privateKey, 'base64');
+        }
     }
     
     getApplicationID() {
@@ -44,14 +48,14 @@ export class VNA {
     }
 
     async getBearerTokenByCode(code) {
-        const domain = await getConfigValue('DOMAIN');
+        const domain = await getConfigValue('VCR_INSTANCE_PUBLIC_URL');
         const vonageJWT = tokenGenerate(this.applicationID, this.privateKey);
         const body = new URLSearchParams({
             grant_type: 'authorization_code',
             code,
-            redirect_uri: `https://${domain}/oauth/redirect`
+            redirect_uri: `${domain}/oauth/redirect`
         });
-
+        console.log(body);
         const camaraResponse = await fetch('https://api-eu.vonage.com/oauth2/token', {
             method: 'POST',
             headers: {

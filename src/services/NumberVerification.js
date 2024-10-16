@@ -8,13 +8,13 @@ export class NumberVerification {
     getAuthURL(domain, phoneNumber, stateID) {
         const params = new URLSearchParams({
             client_id: this.vna.applicationID,
-            redirect_uri: `https://${domain}/oauth/redirect`,
+            redirect_uri: `${domain}/oauth/redirect`,
             response_type: 'code',
             scope: 'openid dpv:FraudPreventionAndDetection#number-verification-verify-read',
             state: stateID,
             login_hint: phoneNumber
         });
-
+console.log(params);
         return `https://oidc.idp.vonage.com/oauth2/auth?${params}`;
     }
 
