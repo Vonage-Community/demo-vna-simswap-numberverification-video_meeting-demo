@@ -2,7 +2,7 @@ import { getVNAService } from './../../services/VNA.js';
 import { getNumberVerificationService } from './../../services/NumberVerification.js';
 import { getWebsocket } from '../../services/App.js';
 import { getConfigValue } from '../../models/Config.js';
-
+import { messageQueue } from '../../services/MessageQueue.js';
 
 export default function(router) {
     router.get('/oauth/redirect', async (req, res) => {
@@ -13,16 +13,11 @@ export default function(router) {
              );
              const numberVerification = getNumberVerificationService(vna);
              const hasPassed = await numberVerification.check(req.query.code, '990123456');
+             messageQueue.log('debug', `Number Verification returned: ${hasPassed}`);
 
              if (hasPassed) {
-                const ws = getWebsocket();
-
-                for (const client of ws.clients) {
-                  const state = req.query.state;
-                  const message = {};
-                  message[state] = true
-                  client.send(JSON.stringify(message));
-                }
+               const state = req.query.state;
+               messageQueue.log('verification', state)
 
                res.render('number_verification_success.twig');
              } else {

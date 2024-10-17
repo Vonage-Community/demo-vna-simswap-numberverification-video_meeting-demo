@@ -2,6 +2,7 @@ import { getSimSwapService } from './../services/SimSwap.js';
 import { getVNAService } from './../services/VNA.js';
 import { getNumberVerificationService } from './../services/NumberVerification.js';
 import { getConfigValue } from '../models/Config.js';
+import { messageQueue } from '../services/MessageQueue.js'
 
 function createRandomString(length) {
    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -20,7 +21,9 @@ export default function(router) {
       );
       const simSwap = getSimSwapService(vna);
 
+      messageQueue.log('debug', 'Invoking SimSwap for +990123456');
       const hasBeenSwapped = await simSwap.hasBeenRecentlySwapped('990123456');
+      messageQueue.log('debug', `SimSwap for +990123456 returned: ${hasBeenSwapped}`);
       
       if (hasBeenSwapped) {
          res.render('sim_swap_error.twig');

@@ -56,12 +56,18 @@
 </head>
 
 <body class="vvd-root">
-    <vwc-header alternate={true}><a href="/">Vonage Video and Network APIs Demo</a></vwc-header>
+    <vwc-header alternate={true}>
+        <a href="/">Vonage Video and Network APIs Demo</a>
+        <vwc-button slot="action-items" icon="connect-line" id="debug_button" label="Enable Debug"></vwc-button>
+    </vwc-header>
 
     <vwc-layout gutters="small" column-spacing="small" column-basis="block">
         {% block content %}{% endblock %}
     <vwc-layout>
 
+    <div id="debug_messages">Logs</div>
+
+    <script src="/js/debug.js"></script>
     {% block footer_javascript %}{% endblock %}
 </body>
 

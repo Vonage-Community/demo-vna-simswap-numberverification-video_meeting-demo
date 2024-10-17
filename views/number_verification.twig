@@ -25,13 +25,11 @@
         '{{ verification_url }}'
     );
 
-    const wsUrl = 'wss://' + window.location.host + '/ws';
-    webSocket = new WebSocket(wsUrl);
-    webSocket.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        if (data['{{ stateID }}']) {
+    eventSource = new EventSource('/api/verification');
+    eventSource.onmessage = (event) => {
+        if (event.data === "{{ stateID }}") {
             window.location = '/room';
         }
-    }
+    };
 </script>
 {% endblock %}
