@@ -11,6 +11,10 @@
             <div>
                 <div class="font-bold">Your Camera</div>
                 <div id="publisher"></div>
+                <div id="hardware_buttons">
+                    <vwc-select label="Camera" id="cameraSelect"></vwc-select>
+                    <vwc-select label="Microphone" id="micSelect"></vwc-select>
+                </div>
             </div>
 
             <vwc-layout>
@@ -23,7 +27,7 @@
         
         
     </div>
-    <div id="buttonHolder">
+    <div id="buttonHolder" class="columns">
         <div id="buttons">
             <vwc-button appearance="filled" label="Start Archive" id="start"></vwc-button>
             <vwc-button appearance="filled" label="Stop Archive" id="stop"></vwc-button>

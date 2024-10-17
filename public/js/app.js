@@ -8,6 +8,10 @@ let archive;
 const archiveStartBtn = document.querySelector('#start');
 const archiveStopBtn = document.querySelector('#stop');
 const archiveLinkSpan = document.querySelector('#archiveLink');
+const cameraSelect = document.getElementById('cameraSelect');
+const micSelect  = document.getElementById('micSelect');
+let session;
+let publisher;
 
 archiveStopBtn.style.display = "none";
 
@@ -17,8 +21,56 @@ function handleError(error) {
   }
 }
 
+function getCameras() {
+  OT.getDevices(function (error, devices) {
+    if (error) {
+      console.error("Error getting devices: ", error);
+      return;
+    }
+
+    // Clear existing options
+    cameraSelect.innerHTML = '';
+
+    // Add options for each camera
+    devices.forEach(function (device) {
+      if (device.kind === 'videoInput') {
+        var option = document.createElement('option');
+        option.value = device.deviceId;
+        option.text = device.label   || 'Camera ' + (cameraSelect.length + 1);
+        cameraSelect.appendChild(option);  
+      }
+    });
+  });
+}
+
+function getMicrophones() {
+  OT.getDevices(function (error, devices) {
+    if (error) {
+      console.error("Error getting devices: ", error);
+      return;
+    }
+
+    // Clear existing options
+    micSelect.innerHTML = '';
+
+    // Add options for each microphone
+    devices.forEach(function (device) {
+      if (device.kind === 'audioInput') {
+        var option = document.createElement('option');
+        option.value = device.deviceId;
+        option.text = device.label   || 'Microphone ' + (micSelect.length + 1);
+        micSelect.appendChild(option);   
+
+      }
+    });
+  });
+}
+
+getCameras();
+getMicrophones();
+
 function initializeSession() {
-  const session = OT.initSession(applicationId, sessionId);
+  session = OT.initSession(applicationId, sessionId);
 
   // Subscribe to a newly created stream
   session.on('streamCreated', (event) => {
@@ -50,13 +102,23 @@ function initializeSession() {
     console.log('You were disconnected from the session.', event.reason);
   });
 
+  initializePublisher();
+}
+
+function initializePublisher() {
+  if (publisher) {
+    publisher.destroy();
+  }
+
   // initialize the publisher
   const publisherOptions = {
+    camera: cameraSelect.value,
+    audioSource: micSelect.value,
     insertMode: 'append',
     width: '100%',
     height: '100%'
   };
-  const publisher = OT.initPublisher('publisher', publisherOptions, handleError);
+  publisher = OT.initPublisher('publisher', publisherOptions, handleError);
 
   // Connect to the session
   session.connect(token, (error) => {
@@ -120,9 +182,6 @@ async function stopArchiving(){
   }
 }
 
-archiveStartBtn.addEventListener('click', startArchiving, false);
-archiveStopBtn.addEventListener('click', stopArchiving, false);
-
 // See the config.js file.
 if (SAMPLE_SERVER_BASE_URL) {
   // Make a GET request to get the Vonage Application ID, session ID, and token from the server
@@ -143,3 +202,8 @@ if (SAMPLE_SERVER_BASE_URL) {
     alert('Failed to get Vonage Video sessionId and token. Make sure you have updated the config.js file.');
   });
 }
+
+archiveStartBtn.addEventListener('click', startArchiving, false);
+archiveStopBtn.addEventListener('click', stopArchiving, false);
+cameraSelect.addEventListener('change', initializePublisher);
+micSelect.addEventListener('change', initializePublisher);
