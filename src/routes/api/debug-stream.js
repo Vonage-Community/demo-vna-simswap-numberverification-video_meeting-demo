@@ -10,8 +10,8 @@ export default function(router) {
             'Connection': 'keep-alive',
           });
 
-          console.log("Last-Event-ID:", req.header('Last-Event-ID'));
           let lastEventID = req.header('Last-Event-ID') || req.query.lastEventId || 0;
+          console.log("Last-Event-ID:", lastEventID);
           
           let connectionActive = true;
           req.on('close', () => {

@@ -48,6 +48,11 @@
         src="https://cdn.jsdelivr.net/npm/@vonage/vivid@3.x/select/index.js"
     ></script>
 
+    <script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@vonage/vivid@3.x/alert/index.js"
+    ></script>
+
     <!-- import Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -65,7 +70,27 @@
         {% block content %}{% endblock %}
     <vwc-layout>
 
-    <div id="debug_messages">Logs</div>
+    <div id="debugBar" class="">
+        <div id="statusBar">
+            <div class="font-bold">
+                Debug Messages
+            </div>
+            
+            <div id="lastDebugMessage">
+            </div>
+
+            <div id="debugMessagesToggle">
+                <vwc-button 
+                    icon="chevron-circle-down-line" 
+                    id="debugMessagesToggleButton"
+                    appearance="filled"
+                >
+                </vwc-button>
+            </div>
+        </div>
+
+        <div id="debugMessageLog" class="pr-4"><div>
+    </div>
 
     <script src="/js/debug.js"></script>
     {% block footer_javascript %}{% endblock %}

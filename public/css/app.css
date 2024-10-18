@@ -38,3 +38,62 @@ body {
     padding: 5px;
     background-color: white;
 }
+
+#debugBar {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    background-color: black;
+    color: white;
+    display: none;
+}
+
+#debugBar #statusBar {
+    align-items: center;
+    gap: 4px;
+    padding: 12px;
+    display: flex;
+}
+
+#debugBar.enabled {
+    display: block;
+    max-height: 250px;
+    overflow-y: scroll;
+}
+
+#lastDebugMessage {
+    flex-grow: 1;
+    text-align: right;
+    padding: 4px;
+}
+
+#debugMessagesToggle {
+    cursor: pointer;
+    padding: 4px;
+    font-weight: bolder;
+}
+
+.break {
+    flex-basis: 100%;
+    height: 0;
+}
+
+#debugMessageLog {
+    width: 100%;
+    display: none;
+    text-align: right;
+    align-content: flex-end;
+    flex-direction: column-reverse;
+    max-height: 250px;
+}
+
+#debugMessageLog.enabled {
+    display: inline-block;
+}
+
+#debugMessageLog {
+    width: 100%;
+    display: none;
+    text-align: right;
+}
