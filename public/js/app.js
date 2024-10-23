@@ -66,9 +66,6 @@ function getMicrophones() {
   });
 }
 
-getCameras();
-getMicrophones();
-
 function initializeSession() {
   session = OT.initSession(applicationId, sessionId);
 
@@ -112,13 +109,23 @@ function initializePublisher() {
 
   // initialize the publisher
   const publisherOptions = {
-    camera: cameraSelect.value,
-    audioSource: micSelect.value,
     insertMode: 'append',
     width: '100%',
     height: '100%'
   };
-  publisher = OT.initPublisher('publisher', publisherOptions, handleError);
+
+  if (cameraSelect?.value) {
+    publisherOptions.camera = cameraSelect.value;
+  }
+
+  if (micSelect?.value) {
+    publisherOptions.audioSource = micSelect.value;
+  }
+
+  publisher = OT.initPublisher('publisher', publisherOptions, function(e) {
+    getCameras();
+    getMicrophones();
+  });
 
   // Connect to the session
   session.connect(token, (error) => {
