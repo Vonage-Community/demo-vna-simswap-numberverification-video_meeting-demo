@@ -115,7 +115,7 @@ function initializePublisher() {
   };
 
   if (cameraSelect?.value) {
-    publisherOptions.camera = cameraSelect.value;
+    publisherOptions.videoSource = cameraSelect.value;
   }
 
   if (micSelect?.value) {
