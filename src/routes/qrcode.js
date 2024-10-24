@@ -27,7 +27,7 @@ export default function(router) {
       } else {
          const stateID = createRandomString(10);
          const numberVerification = getNumberVerificationService(vna);
-         const url = numberVerification.getAuthURL(process.env.DOMAIN, '+990123456', stateID);
+         const url = numberVerification.getAuthURL(getConfigValue('DOMAIN'), '+990123456', stateID);
 
          res.render('number_verification.twig', { 'verification_url': url, stateID });
       }

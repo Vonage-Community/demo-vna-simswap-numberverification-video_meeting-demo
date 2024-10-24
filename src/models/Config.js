@@ -9,6 +9,7 @@ export async function getConfigValue(key) {
     if (!process.env.AWS) {
         try {
             const values = await getSecret('vonage-workshop-secrets');
+            console.log(`DEBUG: requested key '${key}': ${values[key]}`);
             return values[key];
         } catch (error) {
             console.error(error);
