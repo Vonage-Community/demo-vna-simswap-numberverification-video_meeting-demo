@@ -48,7 +48,7 @@ export class VNA {
     }
 
     async getBearerTokenByCode(code) {
-        const domain = await getConfigValue('VCR_INSTANCE_PUBLIC_URL');
+        const domain = await getConfigValue('VCR_INSTANCE_PUBLIC_URL') || await getConfigValue('DOMAIN');
         const vonageJWT = tokenGenerate(this.applicationID, this.privateKey);
         const body = new URLSearchParams({
             grant_type: 'authorization_code',
