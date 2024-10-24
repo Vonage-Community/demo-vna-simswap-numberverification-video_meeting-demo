@@ -1,5 +1,6 @@
 import fetch from 'node-fetch';
 import { tokenGenerate } from '@vonage/jwt';
+import { getConfigValue } from '../models/Config.js';
 
 const instances = {};
 
@@ -43,11 +44,12 @@ export class VNA {
     }
 
     async getBearerTokenByCode(code) {
+        const domain = await getConfigValue('DOMAIN');
         const vonageJWT = tokenGenerate(this.applicationID, this.privateKey);
         const body = new URLSearchParams({
             grant_type: 'authorization_code',
             code,
-            redirect_uri: `https://${process.env.DOMAIN}/oauth/redirect`
+            redirect_uri: `https://${domain}/oauth/redirect`
         });
 
         const camaraResponse = await fetch('https://api-eu.vonage.com/oauth2/token', {
