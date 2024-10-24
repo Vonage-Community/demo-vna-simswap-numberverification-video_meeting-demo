@@ -25,9 +25,10 @@ export default function(router) {
       if (hasBeenSwapped) {
          res.render('sim_swap_error.twig');
       } else {
+         const domain = await getConfigValue('DOMAIN');
          const stateID = createRandomString(10);
          const numberVerification = getNumberVerificationService(vna);
-         const url = numberVerification.getAuthURL(getConfigValue('DOMAIN'), '+990123456', stateID);
+         const url = numberVerification.getAuthURL(domain, '+990123456', stateID);
 
          res.render('number_verification.twig', { 'verification_url': url, stateID });
       }
