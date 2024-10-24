@@ -92,7 +92,6 @@ function initializeSession() {
     console.log('Archive stopped ' + archive.id);
     archiveStartBtn.style.display = 'inline';
     archiveStopBtn.style.display = 'none';
-    archiveLinkSpan.innerHTML = `<a href="${SAMPLE_SERVER_BASE_URL}/api/archive/${archive.id}/view" target="_blank">View Archive</a>`;
   });
 
   session.on('sessionDisconnected', (event) => {
