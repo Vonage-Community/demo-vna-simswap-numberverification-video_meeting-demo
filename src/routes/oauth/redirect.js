@@ -12,7 +12,8 @@ export default function(router) {
                 await getConfigValue('PRIVATE_KEY')
              );
              const numberVerification = getNumberVerificationService(vna);
-             const hasPassed = await numberVerification.check(req.query.code, '990123456');
+             const hasPassed = await numberVerification.check(req.query.code, '9904199802340');
+             console.log(`Number Verification returned: ${hasPassed}`);
              messageQueue.log('debug', `Number Verification returned: ${hasPassed}`);
 
              if (hasPassed) {

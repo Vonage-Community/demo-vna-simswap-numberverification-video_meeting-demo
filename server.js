@@ -28,6 +28,6 @@ app.set('twig', Twig);
 const routes = await RouteLoader('./src/routes/**/*.js');
 app.use('/', routes);
 
-app.listen(expressPort, () => {
-    console.log(`Listening on ${expressPort}`);
+app.listen(expressPort, '0.0.0.0', () => {
+    console.log(`Listening on 0.0.0.0:${expressPort}`);
 });

@@ -5,17 +5,26 @@ export class NumberVerification {
         this.vna = vna;
     }
     
-    getAuthURL(domain, phoneNumber, stateID) {
-        const params = new URLSearchParams({
-            client_id: this.vna.applicationID,
-            redirect_uri: `${domain}/oauth/redirect`,
-            response_type: 'code',
-            scope: 'openid dpv:FraudPreventionAndDetection#number-verification-verify-read',
-            state: stateID,
-            login_hint: phoneNumber
-        });
-console.log(params);
-        return `https://oidc.idp.vonage.com/oauth2/auth?${params}`;
+    async getAuthURL(domain, phoneNumber, stateID) {
+        const ne_uri = "https://api-eu.vonage.com/v0.1/network-enablement";
+        const fraud_scope = "dpv:FraudPreventionAndDetection#number-verification-verify-read"
+        phoneNumber = '+9904199802340';
+        const response = await fetch(ne_uri, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.vna.getVonageJWT()}`
+            },
+            body: JSON.stringify({
+                phone_number: phoneNumber,
+                scopes: [fraud_scope],
+                state: stateID,
+            })
+        }).then(res => res.json());
+        console.log(phoneNumber)
+        console.log(response.scopes[fraud_scope]);
+
+        return response.scopes[fraud_scope]['auth_url'];
     }
 
     async check(code, phoneNumber) {

@@ -31,7 +31,7 @@ export default function(router) {
          const domain = await getConfigValue('VCR_INSTANCE_PUBLIC_URL') || await getConfigValue('DOMAIN');
          const stateID = createRandomString(10);
          const numberVerification = getNumberVerificationService(vna);
-         const url = numberVerification.getAuthURL(domain, '+990123456', stateID);
+         const url = await numberVerification.getAuthURL(domain, '+990123456', stateID);
 
          res.render('number_verification.twig', { 'verification_url': url, stateID });
       }

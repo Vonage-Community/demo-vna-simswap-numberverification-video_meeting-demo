@@ -10,6 +10,7 @@ export class SimSwap {
             login_hint: phoneNumber,
             scope: 'openid dpv:FraudPreventionAndDetection#check-sim-swap'
         });
+        console.log(`sim-swap: Token ${bearerToken}`);
 
         const requestData = {
             phoneNumber,
@@ -26,6 +27,7 @@ export class SimSwap {
         });
 
         const json = await response.json();
+        console.log(`sim-swap: API Response ${JSON.stringify(json)}`);
         
         return json.swapped;
     }

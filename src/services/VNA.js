@@ -18,9 +18,14 @@ export class VNA {
         return this.applicationID;
     }
 
+    getVonageJWT() {
+        return tokenGenerate(this.applicationID, this.privateKey);
+    }
+
     async getBearerToken(data) {
         const additionalData = new URLSearchParams(data);
         const vonageJWT = tokenGenerate(this.applicationID, this.privateKey);
+        console.log(`vna: JWT ${vonageJWT}`);
         const authResponse = await fetch('https://api-eu.vonage.com/oauth2/bc-authorize', {
             method: 'POST',
             body: additionalData,
@@ -30,6 +35,7 @@ export class VNA {
             }
         });
         const authJson = await authResponse.json();
+        console.log(`vna: Auth Response ${JSON.stringify(authJson)}`);
 
         const camaraResponse = await fetch('https://api-eu.vonage.com/oauth2/token', {
             method: 'POST',
@@ -43,6 +49,7 @@ export class VNA {
             })
         });
         const camaraJson = await camaraResponse.json();
+        console.log(`vna: Camara Response ${JSON.stringify(camaraJson)}`);
 
         return camaraJson.access_token;
     }
@@ -55,7 +62,7 @@ export class VNA {
             code,
             redirect_uri: `${domain}/oauth/redirect`
         });
-        console.log(body);
+        console.log(`vna-token-code: ${body}`);
         const camaraResponse = await fetch('https://api-eu.vonage.com/oauth2/token', {
             method: 'POST',
             headers: {
@@ -65,6 +72,7 @@ export class VNA {
             body: body.toString()
         });
         const camaraJson = await camaraResponse.json();
+        console.log(camaraJson);
 
         return camaraJson.access_token;
     }
